@@ -10,7 +10,7 @@ import sys
 import time
 import os
 
-TFRAME = 1.577e+7  # ~ 6 months in seconds
+TFRAME = 3.577e+7  # ~ 6 months in seconds
 TODAY = time.time()
 
 
@@ -99,7 +99,7 @@ def get_library_media_info(section_id):
         response = r.json()
 
         res_data = response['response']['data']['data']
-        return [LIBINFO(data=d) for d in res_data if d['play_count'] is None and (TODAY - int(d['added_at'])) > TFRAME]
+        return [LIBINFO(data=d) for d in res_data if (TODAY - int(d['added_at'])) > TFRAME]
 
     except Exception as e:
         sys.stderr.write("Tautulli API 'get_library_media_info' request failed: {0}.".format(e))
